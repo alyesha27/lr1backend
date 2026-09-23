@@ -12,12 +12,18 @@ import java.nio.file.Paths;
 @CrossOrigin(origins = "*")
 public class Text
 {
-    private static final Path DATA_FILE = Paths.get("text.txt");
+    private static final Path DATA_FILE = Paths.get("data.txt");
 
     @PostMapping("/save")
     public String save(@RequestBody String text) throws Exception
     {
         Files.writeString(DATA_FILE, text, StandardCharsets.UTF_8);
         return "back";
+    }
+
+    @GetMapping("/read")
+    public String read() throws Exception
+    {
+        return Files.readString(DATA_FILE, StandardCharsets.UTF_8);
     }
 }
