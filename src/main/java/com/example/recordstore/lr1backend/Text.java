@@ -12,8 +12,7 @@ import java.nio.file.Paths;
 @CrossOrigin(origins = "*")
 public class Text
 {
-    private static final Path DATA_FILE = Paths.get("data.txt");
-
+    private static final Path DATA_FILE = Paths.get(System.getenv().getOrDefault("DATA_FILE", "data.txt"));
     @PostMapping("/save")
     public String save(@RequestBody String text) throws Exception
     {
@@ -24,6 +23,7 @@ public class Text
     @GetMapping("/read")
     public String read() throws Exception
     {
+        if (!Files.exists(DATA_FILE)) return "";
         return Files.readString(DATA_FILE, StandardCharsets.UTF_8);
     }
 }
