@@ -2,7 +2,7 @@ package com.example.recordstore.lr1backend;
 
 
 import org.springframework.web.bind.annotation.*;
-
+import java.nio.file.StandardOpenOption;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,7 +16,9 @@ public class Text
     @PostMapping("/save")
     public String save(@RequestBody String text) throws Exception
     {
-        Files.writeString(DATA_FILE, text, StandardCharsets.UTF_8);
+        Files.writeString(DATA_FILE, text + System.lineSeparator(),
+                StandardCharsets.UTF_8,
+                StandardOpenOption.CREATE, StandardOpenOption.APPEND);
         return "back";
     }
 
